@@ -1,0 +1,54 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors and IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# PHP / Composer
+/vendor/
+composer.phar
+.phpunit.result.cache
+coverage/
+.php-cs-fixer.cache
+
+# Node / Vue
+/node_modules/
+/dist/
+/build/
+/.vite/
+/.nuxt/
+/.output/
+coverage/
+
+# Nextcloud app packaging artifacts
+*.tar.gz
+*.zip
+/release/
+
+# Typst artifacts
+*.pdf
+*.typst.pdf
+
+# Temporary files
+tmp/
+temp/
+.cache/
+
