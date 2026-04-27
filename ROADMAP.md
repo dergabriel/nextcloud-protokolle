@@ -5,34 +5,43 @@ nutzbaren Nextcloud-App. Zeitangaben sind grobe Schätzungen für ein junges
 Open-Source-Projekt und hängen stark von Verfügbarkeit, Tests in echten
 Gremiensitzungen und Rückmeldungen aus der Nextcloud-Umgebung ab.
 
+```mermaid
+flowchart LR
+    P0["✅ Phase 0<br/>Projekt-Setup"]
+    P1A["⏳ Phase 1a<br/>Backend & Stammdaten"]
+    P1B["🔜 Phase 1b<br/>Editor & Datei-Format"]
+    P2["🔜 Phase 2<br/>Live-Collaboration"]
+    P3["🔜 Phase 3<br/>Multi-Gremium & API"]
+    P4["🔜 Phase 4<br/>fzs-Readiness"]
+
+    P0 --> P1A --> P1B --> P2 --> P3 --> P4
+```
+
+| Phase | Titel | Status | Geschätzter Aufwand |
+| --- | --- | --- | --- |
+| Phase 0 | Projekt-Setup | ✅ abgeschlossen | wenige Tage |
+| Phase 1a | Backend & Stammdaten | ⏳ als Nächstes | 2 Monate |
+| Phase 1b | Editor & Datei-Format | 🔜 geplant | 2-3 Monate |
+| Phase 2 | Live-Collaboration | 🔜 geplant | 1-2 Monate |
+| Phase 3 | Multi-Gremium & Beschluss-API | 🔜 geplant | 1-2 Monate |
+| Phase 4 | fzs-Readiness | 🔜 geplant | 2-3 Monate |
+
 ## Querschnittsthemen
 
 Diese Themen laufen über mehrere Phasen hinweg und sollen nicht erst am Ende
 nachgezogen werden.
 
-**Tests:** Ab Phase 1a sollen automatisierte Tests für kritische Pfade
-entstehen, insbesondere für Stammdaten-CRUD, Datei-Format-Parser und
-Stimmrechtsableitung. Die Testabdeckung soll in jeder folgenden Phase mit der
-Komplexität des Projekts mitwachsen.
+| Thema | Leitlinie |
+| --- | --- |
+| Tests | Ab Phase 1a automatisierte Tests für kritische Pfade: Stammdaten-CRUD, Datei-Format-Parser und Stimmrechtsableitung. Die Testabdeckung wächst in jeder folgenden Phase mit. |
+| Pilot-Sitzungen | Ab Phase 1b regelmäßig in echten Sitzungen der hda-Studierendenschaft testen. Feedback fließt direkt in die laufende Phase zurück. |
+| User-Dokumentation | Ab Phase 1b parallel eine Bedienungsanleitung für Protokollführer*innen pflegen, nicht erst kurz vor Veröffentlichung. |
+| Sicherheits-Review | Spätestens in Phase 2 für die Auth-Bridge, in Phase 4 erneut vor der App-Store-Submission. |
+| Versionsverwaltung | Eingebaute Datei-Versionierung von Nextcloud nutzen; keine eigene Implementierung für `.protokoll`-Versionen. |
 
-**Pilot-Sitzungen:** Ab Phase 1b soll das Projekt regelmäßig in echten
-Sitzungen der hda-Studierendenschaft getestet werden. Feedback aus diesen
-Sitzungen fließt direkt in die jeweilige Phase zurück.
+---
 
-**User-Dokumentation:** Ab Phase 1b soll parallel eine Bedienungsanleitung
-für Protokollführer*innen gepflegt werden. Die Doku entsteht also nicht erst
-kurz vor einer Veröffentlichung, sondern wächst mit den realen Workflows.
-
-**Sicherheits-Review:** Spätestens in Phase 2 braucht die Auth-Bridge zur
-Nextcloud-Session ein Security-Review. Vor einer App-Store-Submission in
-Phase 4 soll ein weiteres Review stattfinden.
-
-**Versionsverwaltung von Protokollen:** Das Projekt nutzt die eingebaute
-Dateiversionierung von Nextcloud und implementiert keine eigene
-Versionsverwaltung für `.protokoll`-Dateien. Diese Designentscheidung ist in
-der Architektur dokumentiert.
-
-## Phase 0 - Projekt-Setup
+## ✅ Phase 0 - Projekt-Setup
 
 **Status:** abgeschlossen
 
@@ -46,17 +55,21 @@ der Architektur dokumentiert.
 
 ### Done when...
 
-- Das Repository ist initialisiert und enthält README, Roadmap,
+- [x] Das Repository ist initialisiert und enthält README, Roadmap,
   Architektur-Dokument, Beitragsplatzhalter, Lizenz und `.gitignore`.
-- Die geplanten Komponenten sind als leere Verzeichnisse sichtbar.
-- Die Lizenz ist eindeutig AGPL-3.0.
-- Es wird noch kein nicht lauffähiger App- oder Build-Code vorgetäuscht.
+- [x] Die geplanten Komponenten sind als leere Verzeichnisse sichtbar.
+- [x] Die Lizenz ist eindeutig AGPL-3.0.
+- [x] Es wird noch kein nicht lauffähiger App- oder Build-Code vorgetäuscht.
 
 ### Geschätzter Aufwand
 
 Wenige Tage für Setup, Abstimmung und erste Dokumentation.
 
-## Phase 1a - Backend & Stammdaten
+---
+
+## 🧱 Phase 1a - Backend & Stammdaten
+
+**Status:** als Nächstes
 
 ### Ziele
 
@@ -69,21 +82,25 @@ Wenige Tage für Setup, Abstimmung und erste Dokumentation.
 
 ### Done when...
 
-- Stammdaten können vollständig gepflegt und über die Settings-UI verwaltet
-  werden.
-- Gremien, Rollen und Mitgliedschaften sind in der Nextcloud-Datenbank
+- [ ] Stammdaten können vollständig gepflegt und über die Settings-UI
+  verwaltet werden.
+- [ ] Gremien, Rollen und Mitgliedschaften sind in der Nextcloud-Datenbank
   abbildbar.
-- Personen können aus Nextcloud-Usern referenziert oder synchronisiert
+- [ ] Personen können aus Nextcloud-Usern referenziert oder synchronisiert
   werden.
-- Aus Rollen wird ableitbar, wer in einem Gremium stimmberechtigt ist.
-- Kritische Stammdaten- und Stimmrechtslogik ist durch erste Tests
+- [ ] Aus Rollen wird ableitbar, wer in einem Gremium stimmberechtigt ist.
+- [ ] Kritische Stammdaten- und Stimmrechtslogik ist durch erste Tests
   abgesichert.
 
 ### Geschätzter Aufwand
 
 2 Monate.
 
-## Phase 1b - Editor & Datei-Format
+---
+
+## 🧩 Phase 1b - Editor & Datei-Format
+
+**Status:** geplant
 
 ### Ziele
 
@@ -98,26 +115,30 @@ Wenige Tage für Setup, Abstimmung und erste Dokumentation.
 - Bedienungsanleitung für Protokollführer*innen parallel beginnen
 - Pilot-Sitzungen mit realen Gremien vorbereiten und auswerten
 
-Gremienspezifische Templates kommen bewusst erst in Phase 3. Phase 1b soll
-zunächst beweisen, dass ein generischer Protokoll-Workflow für eine reale
-Sitzung funktioniert.
+Phase 1b nutzt ein einzelnes, generisches Template. Gremienspezifische
+Templates kommen bewusst erst in Phase 3. Diese Phase soll zuerst beweisen,
+dass ein generischer Protokoll-Workflow für eine reale Sitzung funktioniert.
 
 ### Done when...
 
-- Eine reale Gremiensitzung kann mit der App protokolliert und als PDF
+- [ ] Eine reale Gremiensitzung kann mit der App protokolliert und als PDF
   exportiert werden.
-- Ein*e Nutzer*in kann in Nextcloud ein Protokoll anlegen, bearbeiten,
+- [ ] Ein*e Nutzer*in kann in Nextcloud ein Protokoll anlegen, bearbeiten,
   speichern und wieder öffnen.
-- Die Datei liegt als `.protokoll` im normalen Nextcloud-Dateibaum.
-- Abstimmungen und Beschlüsse werden strukturiert im Dokument gespeichert.
-- Ein PDF kann serverseitig reproduzierbar erzeugt werden.
-- Der Single-User-MVP funktioniert ohne Live-Collaboration.
+- [ ] Die Datei liegt als `.protokoll` im normalen Nextcloud-Dateibaum.
+- [ ] Abstimmungen und Beschlüsse werden strukturiert im Dokument gespeichert.
+- [ ] Ein PDF kann serverseitig reproduzierbar erzeugt werden.
+- [ ] Der Single-User-MVP funktioniert ohne Live-Collaboration.
 
 ### Geschätzter Aufwand
 
 2-3 Monate.
 
-## Phase 2 - Live-Collaboration
+---
+
+## 🤝 Phase 2 - Live-Collaboration
+
+**Status:** geplant
 
 ### Ziele
 
@@ -132,20 +153,24 @@ Sitzung funktioniert.
 
 ### Done when...
 
-- Zwei angemeldete Nutzer*innen können dasselbe Protokoll gleichzeitig
+- [ ] Zwei angemeldete Nutzer*innen können dasselbe Protokoll gleichzeitig
   bearbeiten.
-- Änderungen erscheinen ohne manuelles Neuladen bei allen Teilnehmenden.
-- Der WebSocket-Zugriff respektiert Nextcloud-Berechtigungen.
-- Anwesenheit und Cursorpositionen sind im Editor sichtbar.
-- Die Live-Preview rendert eine realistische Vorschau, ohne den finalen
+- [ ] Änderungen erscheinen ohne manuelles Neuladen bei allen Teilnehmenden.
+- [ ] Der WebSocket-Zugriff respektiert Nextcloud-Berechtigungen.
+- [ ] Anwesenheit und Cursorpositionen sind im Editor sichtbar.
+- [ ] Die Live-Preview rendert eine realistische Vorschau, ohne den finalen
   Server-Export zu ersetzen.
-- Die Auth-Bridge wurde mindestens einmal extern reviewed (Security).
+- [ ] Die Auth-Bridge wurde mindestens einmal extern reviewed (Security).
 
 ### Geschätzter Aufwand
 
 1-2 Monate.
 
-## Phase 3 - Multi-Gremium & Beschluss-API
+---
+
+## 🌐 Phase 3 - Multi-Gremium & Beschluss-API
+
+**Status:** geplant
 
 ### Ziele
 
@@ -163,20 +188,24 @@ Sitzung funktioniert.
 
 ### Done when...
 
-- Mehrere Gremien können eigene Vorlagen und Rollenmodelle verwenden.
-- Beschlüsse lassen sich gremien- und sitzungsübergreifend abfragen.
-- Externe Personen können in Sitzungen, Anwesenheiten und Rollenmodellen
+- [ ] Mehrere Gremien können eigene Vorlagen und Rollenmodelle verwenden.
+- [ ] Beschlüsse lassen sich gremien- und sitzungsübergreifend abfragen.
+- [ ] Externe Personen können in Sitzungen, Anwesenheiten und Rollenmodellen
   sinnvoll abgebildet werden.
-- Externe Systeme können Beschlussdaten über eine dokumentierte API lesen.
-- Ein Markdown-Export erzeugt brauchbare Inhalte für Wiki-Workflows.
-- Die Datenstruktur bleibt kompatibel zu bestehenden `.protokoll`-Dateien
+- [ ] Externe Systeme können Beschlussdaten über eine dokumentierte API lesen.
+- [ ] Ein Markdown-Export erzeugt brauchbare Inhalte für Wiki-Workflows.
+- [ ] Die Datenstruktur bleibt kompatibel zu bestehenden `.protokoll`-Dateien
   aus Phase 1b oder es gibt eine dokumentierte Migration.
 
 ### Geschätzter Aufwand
 
 1-2 Monate.
 
-## Phase 4 - fzs-Readiness
+---
+
+## 🚀 Phase 4 - fzs-Readiness
+
+**Status:** geplant
 
 ### Ziele
 
@@ -189,16 +218,26 @@ Sitzung funktioniert.
 
 ### Done when...
 
-- Die App kann außerhalb der Hochschule Darmstadt nachvollziehbar
+- [ ] Die App kann außerhalb der Hochschule Darmstadt nachvollziehbar
   installiert und konfiguriert werden.
-- Die wichtigsten Oberflächentexte sind übersetzbar.
-- Installations- und Betriebshinweise sind für ehrenamtliche Admins
+- [ ] Die wichtigsten Oberflächentexte sind übersetzbar.
+- [ ] Installations- und Betriebshinweise sind für ehrenamtliche Admins
   verständlich.
-- Die App erfüllt die formalen Voraussetzungen für eine
+- [ ] Die App erfüllt die formalen Voraussetzungen für eine
   Nextcloud-App-Store-Einreichung.
-- Das Projekt ist organisatorisch offen genug, damit weitere
+- [ ] Das Projekt ist organisatorisch offen genug, damit weitere
   Studierendenschaften sinnvoll beitragen können.
 
 ### Geschätzter Aufwand
 
 2-3 Monate.
+
+---
+
+## Wie diese Roadmap gepflegt wird
+
+Diese Roadmap ist ein lebendes Projektdokument. Aufwände sind Schätzungen,
+keine Zusagen, und sollen nach Pilot-Sitzungen, Reviews und Implementierungs-
+erfahrung angepasst werden. Änderungen an Scope, Reihenfolge oder Done-when-
+Kriterien sollten nachvollziehbar begründet werden. Pull Requests mit
+konkreten Verbesserungen sind willkommen.
