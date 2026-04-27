@@ -24,6 +24,7 @@ pnpm-debug.log*
 
 # PHP / Composer
 /vendor/
+**/vendor/
 composer.phar
 .phpunit.result.cache
 coverage/
@@ -51,4 +52,3 @@ coverage/
 tmp/
 temp/
 .cache/
-

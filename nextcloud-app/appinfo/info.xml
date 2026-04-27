@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>protokolle</id>
+    <name>Protokolle</name>
+    <summary>Kollaborativer Protokoll-Editor für studentische Gremien</summary>
+    <description>Kollaborativer Protokoll-Editor für studentische Gremien</description>
+    <version>0.0.1</version>
+    <licence>agpl</licence>
+    <author mail="gabriel@example.com">Gabriel Becker</author>
+    <namespace>Protokolle</namespace>
+    <category>office</category>
+    <dependencies>
+        <nextcloud min-version="28"/>
+    </dependencies>
+    <navigations>
+        <navigation>
+            <name>Protokolle</name>
+            <route>protokolle.page.index</route>
+            <icon>app.svg</icon>
+            <order>10</order>
+        </navigation>
+    </navigations>
+</info>
