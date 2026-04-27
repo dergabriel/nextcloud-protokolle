@@ -1,0 +1,11 @@
+services:
+  nextcloud:
+    image: nextcloud:stable
+    ports:
+      - "8080:80"
+    volumes:
+      - ../nextcloud-app:/var/www/html/custom_apps/protokolle
+      - nextcloud-data:/var/www/html/data
+
+volumes:
+  nextcloud-data:
