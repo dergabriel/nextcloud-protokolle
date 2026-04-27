@@ -13,17 +13,24 @@ einsetzen, anpassen und gemeinsam weiterentwickeln können.
 
 ## 🚦 Status
 
-**Phase 0: Projekt-Setup und Architektur**
+**Phase 0: Projekt-Setup, Recherche und Architektur — abgeschlossen**
 
 Aktuell gibt es noch keinen lauffähigen App-Code, kein Composer-Setup, keine
 Node-Abhängigkeiten und keine installierbare Nextcloud-App. Dieses Repository
 legt zuerst die konzeptionelle Basis: Doku, Lizenz, Struktur und technische
 Richtung.
 
+Die Architektur ist inzwischen bewusst eng an Nextcloud Text angelehnt:
+Markdown im Files-Tree, Tiptap, Yjs/Hocuspocus und Nextcloud-kompatible
+Persistierung bilden die Leitplanken. `nextcloud-protokolle` bleibt eine
+eigene App, übernimmt aber bewährte Patterns statt den Editor-Stack neu zu
+erfinden.
+
 | Bereich | Status |
 | --- | --- |
 | Repository & Lizenz | ✅ angelegt |
-| Architektur & Roadmap | ✅ erster Stand |
+| Architektur & Roadmap | ✅ geschärft |
+| Upstream-Recherche | ✅ dokumentiert |
 | Nextcloud-App-Code | ⏳ geplant |
 | Editor | ⏳ geplant |
 | Live-Collaboration | ⏳ geplant |
@@ -55,7 +62,7 @@ machen.
    ↓
 ✍️ TOPs, Anwesenheit, Abstimmungen und Beschlüsse erfassen
    ↓
-💾 .protokoll-Datei wird im Ordner gespeichert
+💾 Markdown-Datei wird im Ordner gespeichert
    ↓
 📚 Beschlüsse und Sitzungen werden indizierbar
    ↓
@@ -70,9 +77,11 @@ Bestandteile einer Sitzung. Genau diese Struktur soll der Editor verstehen.
 
 | Baustein | Aufgabe |
 | --- | --- |
-| 📁 `.protokoll`-Dateien | JSON-basiertes Protokollformat im normalen Nextcloud-Ordnerbaum |
+| 📁 Markdown-Dateien mit YAML-Blöcken | Protokolle bleiben als `.md` oder `.protokoll.md` im normalen Nextcloud-Ordnerbaum lesbar |
 | ☁️ Nextcloud-App | Integration in Files, Berechtigungen, Sharing und Datenbank |
+| 📑 Nextcloud Text als Architektur-Vorbild | Referenz für Markdown-Persistierung, Tiptap, Yjs/Hocuspocus und Files-Integration |
 | 🧩 Vue 3 + Tiptap | Block-Editor mit eigenen Nodes für TOPs, Abstimmungen, Beschlüsse und Anwesenheit |
+| 🔐 user_oidc als Auth-Bridge | Nextcloud ↔ authentik läuft über die bestehende OIDC-App, nicht über eigenen authentik-Code |
 | 🗃️ Stammdaten | Gremien, Personen, Rollen und Mitgliedschaften in der Nextcloud-DB |
 | 🗳️ Rollenmodell | Stimmrechte werden aus Rollen im jeweiligen Gremium abgeleitet |
 | 📄 Typst CLI | Serverseitiger finaler PDF-Export |
@@ -103,7 +112,7 @@ Der erste technische Meilenstein ist ein Single-User-MVP:
 1. 🧩 Nextcloud-App-Skelett erstellen
 2. 🗃️ Stammdaten für Gremien, Rollen und Mitgliedschaften modellieren
 3. ✍️ Tiptap-Editor mit semantischen Blöcken aufbauen
-4. 💾 `.protokoll`-Dateien lesen und schreiben
+4. 💾 Markdown-Dateien mit eingebetteten YAML-Blöcken lesen und schreiben
 5. 📤 PDF-Export über Typst CLI anbinden
 
 Live-Collaboration kommt bewusst danach, damit der Grundworkflow zuerst stabil
@@ -113,6 +122,7 @@ steht.
 
 - 🛣️ [Roadmap](ROADMAP.md)
 - 🏗️ [Architektur](ARCHITECTURE.md)
+- 🧱 [Verwendete Open-Source-Projekte](docs/upstream-projects.md)
 - 🤝 [Beitragen](CONTRIBUTING.md)
 - ⚖️ [Lizenz](LICENSE)
 
