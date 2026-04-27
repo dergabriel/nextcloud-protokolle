@@ -122,6 +122,7 @@ steht.
 
 - 🛣️ [Roadmap](ROADMAP.md)
 - 🏗️ [Architektur](ARCHITECTURE.md)
+- 🚀 [Getting Started](docs/getting-started.md)
 - 🧱 [Verwendete Open-Source-Projekte](docs/upstream-projects.md)
 - 🤝 [Beitragen](CONTRIBUTING.md)
 - ⚖️ [Lizenz](LICENSE)

@@ -78,6 +78,11 @@ Wenige Tage für Setup, Abstimmung, Recherche und erste Dokumentation.
 
 **Status:** als Nächstes
 
+**Aktueller Stand:** Schritt 1, das Hello-World-Skelett der Nextcloud-App,
+ist abgeschlossen. Die App registriert sich als `protokolle`, bringt eine
+leere Seite, einen Test-Endpoint und eine lokale Docker-Entwicklungsumgebung
+mit. Stammdaten-Funktionen sind noch nicht umgesetzt.
+
 ### Ziele
 
 - Nextcloud-App-Skelett auf Basis des Nextcloud-App-Frameworks erstellen
