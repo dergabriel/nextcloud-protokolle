@@ -75,10 +75,19 @@ Wenige Tage für Setup, Abstimmung und erste Dokumentation.
 
 - Nextcloud-App-Skelett auf Basis des Nextcloud-App-Frameworks erstellen
 - Stammdatenverwaltung für Gremien, Rollen und Mitgliedschaften umsetzen
-- Personen-Sync aus Nextcloud-Usern vorbereiten
+- `PersonSource`-Interface für austauschbare Personen-Quellen definieren
+- `AuthentikPersonSource` als erste Personen-Quelle für den hda-Einsatz
+  implementieren
+- Erweiterungspunkte für `NextcloudUserPersonSource` und `ManualPersonSource`
+  mitdenken, ohne sie in Phase 1a bereits umzusetzen
 - Settings-UI für Stammdaten bereitstellen
 - Rollenbasierte Stimmrechtsableitung implementieren
 - Automatisierte Tests für Stammdaten-CRUD und Stimmrechtslogik beginnen
+
+### Setup-Anforderung
+
+- Eine erreichbare authentik-Instanz mit konfiguriertem Application/Provider
+  für die App
 
 ### Done when...
 
@@ -86,8 +95,10 @@ Wenige Tage für Setup, Abstimmung und erste Dokumentation.
   verwaltet werden.
 - [ ] Gremien, Rollen und Mitgliedschaften sind in der Nextcloud-Datenbank
   abbildbar.
-- [ ] Personen können aus Nextcloud-Usern referenziert oder synchronisiert
-  werden.
+- [ ] Personen können über die `AuthentikPersonSource` aus authentik
+  referenziert oder synchronisiert werden.
+- [ ] Das `PersonSource`-Interface ist so geschnitten, dass weitere Backends
+  ohne Architektur-Umbau ergänzt werden können.
 - [ ] Aus Rollen wird ableitbar, wer in einem Gremium stimmberechtigt ist.
 - [ ] Kritische Stammdaten- und Stimmrechtslogik ist durch erste Tests
   abgesichert.
@@ -211,6 +222,8 @@ dass ein generischer Protokoll-Workflow für eine reale Sitzung funktioniert.
 
 - Internationalisierung für Deutsch und Englisch vorbereiten
 - Setup-Dokumentation für andere Studierendenschaften schreiben
+- Mindestens zwei Personen-Quellen-Backends verfügbar machen:
+  authentik und Nextcloud-Users
 - Betrieb, Updates, Backup und Rechtekonzepte dokumentieren
 - Nextcloud-App-Store-Submission vorbereiten
 - Rückmeldungen aus externen Testinstallationen einarbeiten
@@ -221,6 +234,8 @@ dass ein generischer Protokoll-Workflow für eine reale Sitzung funktioniert.
 - [ ] Die App kann außerhalb der Hochschule Darmstadt nachvollziehbar
   installiert und konfiguriert werden.
 - [ ] Die wichtigsten Oberflächentexte sind übersetzbar.
+- [ ] Mindestens `AuthentikPersonSource` und `NextcloudUserPersonSource` sind
+  verfügbar, damit Studierendenschaften ohne authentik die App nutzen können.
 - [ ] Installations- und Betriebshinweise sind für ehrenamtliche Admins
   verständlich.
 - [ ] Die App erfüllt die formalen Voraussetzungen für eine

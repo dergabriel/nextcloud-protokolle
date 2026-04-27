@@ -28,12 +28,16 @@ flowchart LR
     Hocuspocus["Hocuspocus-Server<br/>(Node.js)"]
     Typst["Typst-Renderer<br/>(CLI + typst.ts)"]
     DB["Nextcloud-DB<br/>(Stammdaten + Index)"]
+    PersonSource["PersonSource-Interface"]
+    Authentik["authentik<br/>(hda IdP)"]
 
     User --> Files
     Files --> App
     App --> Editor
     Editor <--> App
     App <--> DB
+    App --> PersonSource
+    PersonSource --> Authentik
     Editor <--> Hocuspocus
     App --> Typst
     Typst --> App
@@ -92,7 +96,8 @@ erDiagram
 
     PERSON {
         string id
-        string nextcloudUserId
+        string source
+        string sourcePersonId
         boolean extern
     }
 
@@ -138,10 +143,13 @@ erDiagram
 oder einen Fachschaftsrat. Ein Gremium besitzt Namen, optionale Metadaten und
 eine Menge von Rollen und Mitgliedschaften.
 
-**Person** beschreibt eine natürliche Person. Primär wird eine Person mit
-einem Nextcloud-User verknüpft. Für spätere Ausbaustufen ist ein
-`extern`-Flag vorgesehen, damit auch Gäste, beratende Mitglieder oder
-Personen ohne Nextcloud-Account auftauchen können.
+**Person** beschreibt eine natürliche Person. Personen werden über
+austauschbare Backends angebunden, die ein gemeinsames `PersonSource`-
+Interface erfüllen. Für die hda ist zunächst `AuthentikPersonSource` über
+die authentik-API (https://goauthentik.io/) als Quelle geplant. Später können
+`NextcloudUserPersonSource` für Nextcloud-User und `ManualPersonSource` für
+vollständig manuell gepflegte Personen ergänzt werden. Externe Personen wie
+Gäste bleiben unabhängig vom Backend immer manuell pflegbar.
 
 **Rolle** beschreibt eine Funktion innerhalb eines Gremiums, zum Beispiel
 Mitglied, Vorsitz, Gast, Protokoll oder beratendes Mitglied. Rollen tragen ein
@@ -338,6 +346,24 @@ andere Rolle bekommt oder eine Mitgliedschaft endet, ändert sich das
 Stimmrecht über die Struktur, nicht über einzelne Sonderregeln. Gleichzeitig
 bleibt abbildbar, welche Personen in einer konkreten Sitzung stimmberechtigt
 waren.
+
+### Austauschbare Personen-Quellen
+
+**Entscheidung:** Personen-Quellen werden über ein abstraktes Backend-
+Interface angebunden, nicht hart an Nextcloud-User gekoppelt. Geplante
+Implementierungen sind `AuthentikPersonSource`, `NextcloudUserPersonSource`
+und `ManualPersonSource`.
+
+**Begründung:** Studierendenschaften haben unterschiedliche Identitäts-
+Infrastrukturen. Die hda nutzt authentik, andere Studierendenschaften haben
+eventuell keinen IdP oder andere Lösungen. Eine harte Kopplung an
+Nextcloud-User würde fzs-Tauglichkeit unnötig einschränken.
+
+**Konsequenzen:** Es entsteht mehr Initialaufwand für ein sauberes Interface.
+Dafür bleiben spätere Erweiterungen ohne grundlegendes Refactoring möglich.
+Phase 1a startet mit authentik als einziger Implementierung; weitere Backends
+kommen in späteren Phasen. Externe Personen wie Gäste bleiben unabhängig vom
+gewählten Backend manuell pflegbar.
 
 ### Versionsverwaltung über Nextcloud Files
 
