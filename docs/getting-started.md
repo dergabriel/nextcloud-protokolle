@@ -123,7 +123,69 @@ cd dev-environment
 docker compose exec --user www-data nextcloud php -r '$db=new PDO("sqlite:/var/www/html/data/nextcloud.db"); foreach($db->query("SELECT name, sql FROM sqlite_master WHERE name LIKE \"oc_protokolle_%\" ORDER BY name") as $row){echo "--- ".$row["name"].PHP_EOL.$row["sql"].PHP_EOL;}'
 ```
 
-## 9. Tests lokal ausführen
+## 9. Stammdaten per CLI verwalten
+
+Die Stammdaten können in der Dev-Umgebung ohne UI über `occ` gepflegt werden.
+Alle Befehle werden aus `dev-environment/` heraus ausgeführt.
+
+Verfügbare Befehle anzeigen:
+
+```bash
+docker compose exec --user www-data nextcloud php occ list protokolle
+```
+
+Gremien:
+
+```bash
+docker compose exec --user www-data nextcloud php occ protokolle:gremium:create --name "AStA" --kuerzel "AStA"
+docker compose exec --user www-data nextcloud php occ protokolle:gremium:list
+docker compose exec --user www-data nextcloud php occ protokolle:gremium:delete 1
+```
+
+Rollen:
+
+```bash
+docker compose exec --user www-data nextcloud php occ protokolle:rolle:create --gremium 1 --name "AStA-Referent:in"
+docker compose exec --user www-data nextcloud php occ protokolle:rolle:create --gremium 1 --name "Gast" --no-stimmberechtigt
+docker compose exec --user www-data nextcloud php occ protokolle:rolle:list --gremium 1
+docker compose exec --user www-data nextcloud php occ protokolle:rolle:delete 1
+```
+
+Personen:
+
+```bash
+docker compose exec --user www-data nextcloud php occ protokolle:person:create-extern --vorname "Sascha" --nachname "Wellmann"
+docker compose exec --user www-data nextcloud php occ protokolle:person:create-from-user --user "admin"
+docker compose exec --user www-data nextcloud php occ protokolle:person:list
+docker compose exec --user www-data nextcloud php occ protokolle:person:delete 1
+```
+
+Mitgliedschaften:
+
+```bash
+docker compose exec --user www-data nextcloud php occ protokolle:mitgliedschaft:create --person 1 --rolle 1
+docker compose exec --user www-data nextcloud php occ protokolle:mitgliedschaft:create --person 1 --rolle 2 --stimmberechtigt false
+docker compose exec --user www-data nextcloud php occ protokolle:mitgliedschaft:list
+docker compose exec --user www-data nextcloud php occ protokolle:mitgliedschaft:list --gremium 1
+docker compose exec --user www-data nextcloud php occ protokolle:mitgliedschaft:list --person 1
+docker compose exec --user www-data nextcloud php occ protokolle:mitgliedschaft:delete 1
+```
+
+Durchgehendes Beispiel-Szenario:
+
+```bash
+docker compose exec --user www-data nextcloud php occ protokolle:gremium:create --name "AStA" --kuerzel "AStA"
+docker compose exec --user www-data nextcloud php occ protokolle:rolle:create --gremium 1 --name "AStA-Referent:in"
+docker compose exec --user www-data nextcloud php occ protokolle:person:create-extern --vorname "Sascha" --nachname "Wellmann"
+docker compose exec --user www-data nextcloud php occ protokolle:mitgliedschaft:create --person 1 --rolle 1
+docker compose exec --user www-data nextcloud php occ protokolle:mitgliedschaft:list
+```
+
+Die Listenbefehle geben Tabellen aus. Fehler aus der Service-Schicht, zum
+Beispiel doppelte Namen, erscheinen als deutsche Fehlermeldung mit Exit-Code
+`1`.
+
+## 10. Tests lokal ausführen
 
 ```bash
 cd nextcloud-app
@@ -131,7 +193,7 @@ composer install
 make test-php
 ```
 
-## 10. Häufige Probleme
+## 11. Häufige Probleme
 
 ### Port 8080 ist bereits belegt
 
