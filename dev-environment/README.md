@@ -13,25 +13,43 @@ Die Nextcloud ist anschließend unter http://localhost:8080 erreichbar.
 
 ## Erstinstallation und Login
 
-Beim ersten Aufruf von http://localhost:8080 führt Nextcloud durch das
-Admin-Setup. Für lokale Entwicklung kann ein beliebiger Admin-Account
-angelegt werden.
+Beim ersten Start legt die Compose-Umgebung automatisch den lokalen
+Admin-Account `admin` mit dem Passwort `admin` an.
 
 SQLite reicht für diese Entwicklungsumgebung aus. Es wird kein separater
 Datenbank-Container gestartet.
 
 ## App aktivieren
 
-Nach der Erstinstallation:
+Die App wird in der lokalen Entwicklungsumgebung bevorzugt per CLI aktiviert:
 
-1. Als Admin in Nextcloud anmelden.
-2. In den Admin-Bereich für Apps wechseln.
-3. Die App **Protokolle** unter den lokalen oder deaktivierten Apps suchen.
-4. Die App aktivieren.
-5. Danach sollte **Protokolle** im Hauptmenü erscheinen.
+```bash
+docker compose exec --user www-data nextcloud php occ app:enable protokolle
+```
+
+Dieser Weg ist robuster als die Aktivierung über die Apps-Settings-Seite, weil
+die Settings-Seite in frischen Dev-Umgebungen während der Initialisierung noch
+Fehler zeigen kann.
+
+Ist die App aktiv, ist sie direkt erreichbar unter:
+
+http://localhost:8080/index.php/apps/protokolle/
 
 Das lokale Verzeichnis `nextcloud-app/` wird in den Container nach
-`/var/www/html/custom_apps/protokolle/` eingebunden.
+`/var/www/html/custom_apps/protokolle/` eingebunden. Das übergeordnete
+`custom_apps`-Verzeichnis liegt auf einem schreibbaren Docker-Volume, damit
+Nextcloud seine App-Prüfungen und lokalen Dev-Abläufe ausführen kann.
+
+## Wenn die Dev-Umgebung zickt
+
+Für einen vollständigen Reset:
+
+```bash
+docker compose down -v && docker compose up -d
+```
+
+Danach sind Erstinitialisierung und App-Aktivierung erneut nötig. Die lokalen
+Default-Credentials sind `admin` / `admin`.
 
 ## Stoppen
 

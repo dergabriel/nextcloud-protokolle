@@ -36,18 +36,24 @@ Nextcloud läuft lokal unter:
 
 http://localhost:8080
 
-Beim ersten Start führt Nextcloud durch das Admin-Setup. Für die lokale
-Entwicklung kann ein beliebiger Admin-Account angelegt werden. SQLite reicht
-für diese Entwicklungsumgebung aus.
+Beim ersten Start legt die Compose-Umgebung den lokalen Admin-Account `admin`
+mit dem Passwort `admin` an. SQLite reicht für diese Entwicklungsumgebung aus.
 
 ## 5. App aktivieren
 
-Nach der Erstinstallation:
+Die App wird in der lokalen Entwicklungsumgebung bevorzugt per CLI aktiviert:
 
-1. Als Admin anmelden.
-2. In den Admin-Bereich für Apps wechseln.
-3. Die App **Protokolle** unter den lokalen oder deaktivierten Apps suchen.
-4. Die App aktivieren.
+```bash
+docker compose exec --user www-data nextcloud php occ app:enable protokolle
+```
+
+Bei einer frischen Dev-Umgebung kann die Apps-Settings-Seite zunächst Fehler
+zeigen, bis Nextcloud vollständig initialisiert ist. Die Aktivierung über die
+CLI ist robuster und wird für lokale Entwicklung als Standardweg empfohlen.
+
+Ist die App einmal aktiv, ist sie direkt erreichbar unter:
+
+http://localhost:8080/index.php/apps/protokolle/
 
 ## 6. App öffnen
 
@@ -58,7 +64,7 @@ Die Seite zeigt aktuell nur die Hello-World-Seite mit der Überschrift
 ## 7. Test-Endpoint manuell prüfen
 
 ```bash
-curl http://localhost:8080/index.php/apps/protokolle/hello
+curl -u admin:admin http://localhost:8080/index.php/apps/protokolle/hello
 ```
 
 Erwartete Antwort:
@@ -104,6 +110,24 @@ docker compose exec nextcloud ls -la /var/www/html/custom_apps/protokolle
 Dort sollten unter anderem `appinfo/`, `lib/`, `templates/` und `img/`
 sichtbar sein.
 
+Danach die App per CLI aktivieren:
+
+```bash
+docker compose exec --user www-data nextcloud php occ app:enable protokolle
+```
+
+### Apps-Settings-Seite zeigt Fehler
+
+In der Dev-Umgebung ist die CLI-Aktivierung der verbindliche Standardweg. Wenn
+die Apps-Settings-Seite direkt nach einem frischen Start noch Fehler zeigt,
+zuerst die App per `occ` aktivieren und Nextcloud vollständig initialisieren
+lassen.
+
+Bekannte Einschränkung: In der aktuellen lokalen Docker-Dev-Umgebung kann
+`/settings/apps` trotz schreibbarem `custom_apps`-Volume weiterhin mit HTTP
+500 antworten. Das blockiert den Dev-Workflow nicht; App-Aktivierung per CLI
+ist bis zur Klärung der verbindliche Weg.
+
 ### Composer-Abhängigkeiten fehlen
 
 Im App-Verzeichnis installieren:
@@ -117,7 +141,8 @@ composer install
 
 ```bash
 cd dev-environment
-docker compose down -v
+docker compose down -v && docker compose up -d
 ```
 
-Danach kann die Erstinstallation neu durchgeführt werden.
+Danach sind Erstinstallation und App-Aktivierung erneut nötig. Die lokalen
+Default-Credentials sind `admin` / `admin`.
