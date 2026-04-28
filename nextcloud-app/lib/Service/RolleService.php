@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace OCA\Protokolle\Service;
 
-use DateTimeImmutable;
-use DateTimeZone;
 use OCA\Protokolle\Db\Rolle;
 use OCA\Protokolle\Db\RolleMapper;
 use OCA\Protokolle\Exception\RolleNameInGremiumAlreadyExistsException;
@@ -26,8 +24,9 @@ class RolleService {
         $rolle->setName($name);
         $rolle->setStimmberechtigtDefault($stimmberechtigtDefault);
         $rolle->setBeschreibung($beschreibung);
-        $rolle->setCreatedAt($this->now());
-        $rolle->setUpdatedAt($this->now());
+        $now = new \DateTime();
+        $rolle->setCreatedAt($now);
+        $rolle->setUpdatedAt($now);
 
         /** @var Rolle $created */
         $created = $this->rolleMapper->insert($rolle);
@@ -45,7 +44,7 @@ class RolleService {
         $rolle->setName($name);
         $rolle->setStimmberechtigtDefault($stimmberechtigtDefault);
         $rolle->setBeschreibung($beschreibung);
-        $rolle->setUpdatedAt($this->now());
+        $rolle->setUpdatedAt(new \DateTime());
 
         /** @var Rolle $updated */
         $updated = $this->rolleMapper->update($rolle);
@@ -77,7 +76,4 @@ class RolleService {
         }
     }
 
-    private function now(): DateTimeImmutable {
-        return new DateTimeImmutable('now', new DateTimeZone('UTC'));
-    }
 }

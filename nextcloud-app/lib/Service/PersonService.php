@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace OCA\Protokolle\Service;
 
-use DateTimeImmutable;
-use DateTimeZone;
 use OCA\Protokolle\Db\Person;
 use OCA\Protokolle\Db\PersonMapper;
 use OCA\Protokolle\Exception\InvalidPersonDataException;
@@ -31,8 +29,9 @@ class PersonService {
         $person->setEmail($email);
         $person->setExtern(true);
         $person->setNotizen($notizen);
-        $person->setCreatedAt($this->now());
-        $person->setUpdatedAt($this->now());
+        $now = new \DateTime();
+        $person->setCreatedAt($now);
+        $person->setUpdatedAt($now);
 
         /** @var Person $created */
         $created = $this->personMapper->insert($person);
@@ -55,8 +54,9 @@ class PersonService {
         $person->setEmail(null);
         $person->setExtern(false);
         $person->setNotizen(null);
-        $person->setCreatedAt($this->now());
-        $person->setUpdatedAt($this->now());
+        $now = new \DateTime();
+        $person->setCreatedAt($now);
+        $person->setUpdatedAt($now);
 
         /** @var Person $created */
         $created = $this->personMapper->insert($person);
@@ -77,7 +77,7 @@ class PersonService {
 
         $person->setEmail($email);
         $person->setNotizen($notizen);
-        $person->setUpdatedAt($this->now());
+        $person->setUpdatedAt(new \DateTime());
 
         /** @var Person $updated */
         $updated = $this->personMapper->update($person);
@@ -131,7 +131,4 @@ class PersonService {
         }
     }
 
-    private function now(): DateTimeImmutable {
-        return new DateTimeImmutable('now', new DateTimeZone('UTC'));
-    }
 }

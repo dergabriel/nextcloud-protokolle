@@ -35,6 +35,8 @@ class RolleServiceTest extends TestCase {
         $this->assertSame('Referent:in', $rolle->getName());
         $this->assertTrue($rolle->getStimmberechtigtDefault());
         $this->assertSame('AStA-Referat', $rolle->getBeschreibung());
+        $this->assertInstanceOf(\DateTime::class, $rolle->getCreatedAt());
+        $this->assertInstanceOf(\DateTime::class, $rolle->getUpdatedAt());
     }
 
     public function testCreateRejectsDuplicateNameInSameGremium(): void {
@@ -84,5 +86,6 @@ class RolleServiceTest extends TestCase {
         $this->assertSame('Neu', $updated->getName());
         $this->assertTrue($updated->getStimmberechtigtDefault());
         $this->assertSame('Beschreibung', $updated->getBeschreibung());
+        $this->assertInstanceOf(\DateTime::class, $updated->getUpdatedAt());
     }
 }

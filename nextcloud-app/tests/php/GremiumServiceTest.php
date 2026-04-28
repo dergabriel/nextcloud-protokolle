@@ -37,7 +37,9 @@ class GremiumServiceTest extends TestCase {
         $this->assertSame('AStA', $gremium->getName());
         $this->assertSame('AStA', $gremium->getKuerzel());
         $this->assertSame('Allgemeiner Studierendenausschuss', $gremium->getBeschreibung());
-        $this->assertNotNull($gremium->getCreatedAt());
+        $this->assertInstanceOf(\DateTime::class, $gremium->getCreatedAt());
+        $this->assertInstanceOf(\DateTime::class, $gremium->getUpdatedAt());
+        $this->assertSame($gremium->getCreatedAt(), $gremium->getUpdatedAt());
     }
 
     public function testCreateRejectsDuplicateName(): void {
@@ -70,6 +72,7 @@ class GremiumServiceTest extends TestCase {
         $this->assertSame('StuPa', $updated->getName());
         $this->assertSame('SP', $updated->getKuerzel());
         $this->assertSame('Studierendenparlament', $updated->getBeschreibung());
+        $this->assertInstanceOf(\DateTime::class, $updated->getUpdatedAt());
     }
 
     public function testDeleteDeletesExistingGremium(): void {

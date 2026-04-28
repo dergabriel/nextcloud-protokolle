@@ -31,7 +31,7 @@ class Gremium extends Entity {
         $this->addType('name', Types::STRING);
         $this->addType('kuerzel', Types::STRING);
         $this->addType('beschreibung', Types::TEXT);
-        $this->addType('createdAt', Types::DATETIME);
-        $this->addType('updatedAt', Types::DATETIME);
+        $this->addType('createdAt', 'datetime');
+        $this->addType('updatedAt', 'datetime');
     }
 }

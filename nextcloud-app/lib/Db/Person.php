@@ -43,8 +43,8 @@ class Person extends Entity {
         $this->addType('email', Types::STRING);
         $this->addType('extern', Types::BOOLEAN);
         $this->addType('notizen', Types::TEXT);
-        $this->addType('createdAt', Types::DATETIME);
-        $this->addType('updatedAt', Types::DATETIME);
+        $this->addType('createdAt', 'datetime');
+        $this->addType('updatedAt', 'datetime');
     }
 
     public function getAnzeigename(): string {

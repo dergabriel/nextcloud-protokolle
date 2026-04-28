@@ -20,8 +20,8 @@ class Version000001Date20260428000001 extends SimpleMigrationStep {
             $table->addColumn('name', 'string', ['length' => 200, 'notnull' => true]);
             $table->addColumn('kuerzel', 'string', ['length' => 30, 'notnull' => false]);
             $table->addColumn('beschreibung', 'text', ['notnull' => false]);
-            $table->addColumn('created_at', 'datetime', ['notnull' => true, 'default' => 'CURRENT_TIMESTAMP']);
-            $table->addColumn('updated_at', 'datetime', ['notnull' => true, 'default' => 'CURRENT_TIMESTAMP']);
+            $table->addColumn('created_at', 'datetime', ['notnull' => true]);
+            $table->addColumn('updated_at', 'datetime', ['notnull' => true]);
             $table->setPrimaryKey(['id'], 'pr_gremium_pk');
             $table->addUniqueIndex(['name'], 'pr_gremium_name_u');
         }
@@ -33,8 +33,8 @@ class Version000001Date20260428000001 extends SimpleMigrationStep {
             $table->addColumn('name', 'string', ['length' => 200, 'notnull' => true]);
             $table->addColumn('stimmberechtigt_default', 'boolean', ['notnull' => false, 'default' => 1]);
             $table->addColumn('beschreibung', 'text', ['notnull' => false]);
-            $table->addColumn('created_at', 'datetime', ['notnull' => true, 'default' => 'CURRENT_TIMESTAMP']);
-            $table->addColumn('updated_at', 'datetime', ['notnull' => true, 'default' => 'CURRENT_TIMESTAMP']);
+            $table->addColumn('created_at', 'datetime', ['notnull' => true]);
+            $table->addColumn('updated_at', 'datetime', ['notnull' => true]);
             $table->setPrimaryKey(['id'], 'pr_rolle_pk');
             $table->addUniqueIndex(['gremium_id', 'name'], 'pr_rolle_grem_name_u');
             $table->addForeignKeyConstraint(
@@ -55,8 +55,8 @@ class Version000001Date20260428000001 extends SimpleMigrationStep {
             $table->addColumn('email', 'string', ['length' => 200, 'notnull' => false]);
             $table->addColumn('extern', 'boolean', ['notnull' => false, 'default' => 0]);
             $table->addColumn('notizen', 'text', ['notnull' => false]);
-            $table->addColumn('created_at', 'datetime', ['notnull' => true, 'default' => 'CURRENT_TIMESTAMP']);
-            $table->addColumn('updated_at', 'datetime', ['notnull' => true, 'default' => 'CURRENT_TIMESTAMP']);
+            $table->addColumn('created_at', 'datetime', ['notnull' => true]);
+            $table->addColumn('updated_at', 'datetime', ['notnull' => true]);
             $table->setPrimaryKey(['id'], 'pr_person_pk');
             $table->addUniqueIndex(['nextcloud_user_id'], 'pr_person_nc_uid_u');
         }
@@ -67,8 +67,8 @@ class Version000001Date20260428000001 extends SimpleMigrationStep {
             $table->addColumn('person_id', 'integer', ['notnull' => true]);
             $table->addColumn('rolle_id', 'integer', ['notnull' => true]);
             $table->addColumn('stimmberechtigt_override', 'boolean', ['notnull' => false]);
-            $table->addColumn('created_at', 'datetime', ['notnull' => true, 'default' => 'CURRENT_TIMESTAMP']);
-            $table->addColumn('updated_at', 'datetime', ['notnull' => true, 'default' => 'CURRENT_TIMESTAMP']);
+            $table->addColumn('created_at', 'datetime', ['notnull' => true]);
+            $table->addColumn('updated_at', 'datetime', ['notnull' => true]);
             $table->setPrimaryKey(['id'], 'pr_mitgliedschaft_pk');
             $table->addUniqueIndex(['person_id', 'rolle_id'], 'pr_mitgliedschaft_u');
             $table->addForeignKeyConstraint(

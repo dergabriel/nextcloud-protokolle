@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace OCA\Protokolle\Service;
 
-use DateTimeImmutable;
-use DateTimeZone;
 use OCA\Protokolle\Db\Gremium;
 use OCA\Protokolle\Db\GremiumMapper;
 use OCA\Protokolle\Exception\GremiumNameAlreadyExistsException;
@@ -25,8 +23,9 @@ class GremiumService {
         $gremium->setName($name);
         $gremium->setKuerzel($kuerzel);
         $gremium->setBeschreibung($beschreibung);
-        $gremium->setCreatedAt($this->now());
-        $gremium->setUpdatedAt($this->now());
+        $now = new \DateTime();
+        $gremium->setCreatedAt($now);
+        $gremium->setUpdatedAt($now);
 
         /** @var Gremium $created */
         $created = $this->gremiumMapper->insert($gremium);
@@ -44,7 +43,7 @@ class GremiumService {
         $gremium->setName($name);
         $gremium->setKuerzel($kuerzel);
         $gremium->setBeschreibung($beschreibung);
-        $gremium->setUpdatedAt($this->now());
+        $gremium->setUpdatedAt(new \DateTime());
 
         /** @var Gremium $updated */
         $updated = $this->gremiumMapper->update($gremium);
@@ -76,7 +75,4 @@ class GremiumService {
         }
     }
 
-    private function now(): DateTimeImmutable {
-        return new DateTimeImmutable('now', new DateTimeZone('UTC'));
-    }
 }

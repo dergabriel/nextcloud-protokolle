@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace OCA\Protokolle\Service;
 
-use DateTimeImmutable;
-use DateTimeZone;
 use OCA\Protokolle\Db\Mitgliedschaft;
 use OCA\Protokolle\Db\MitgliedschaftMapper;
 use OCA\Protokolle\Db\RolleMapper;
@@ -32,8 +30,9 @@ class MitgliedschaftService {
         $mitgliedschaft->setPersonId($personId);
         $mitgliedschaft->setRolleId($rolleId);
         $mitgliedschaft->setStimmberechtigtOverride($stimmberechtigtOverride);
-        $mitgliedschaft->setCreatedAt($this->now());
-        $mitgliedschaft->setUpdatedAt($this->now());
+        $now = new \DateTime();
+        $mitgliedschaft->setCreatedAt($now);
+        $mitgliedschaft->setUpdatedAt($now);
 
         /** @var Mitgliedschaft $created */
         $created = $this->mitgliedschaftMapper->insert($mitgliedschaft);
@@ -43,7 +42,7 @@ class MitgliedschaftService {
     public function update(int $id, ?bool $stimmberechtigtOverride): Mitgliedschaft {
         $mitgliedschaft = $this->find($id);
         $mitgliedschaft->setStimmberechtigtOverride($stimmberechtigtOverride);
-        $mitgliedschaft->setUpdatedAt($this->now());
+        $mitgliedschaft->setUpdatedAt(new \DateTime());
 
         /** @var Mitgliedschaft $updated */
         $updated = $this->mitgliedschaftMapper->update($mitgliedschaft);
@@ -90,7 +89,4 @@ class MitgliedschaftService {
         }
     }
 
-    private function now(): DateTimeImmutable {
-        return new DateTimeImmutable('now', new DateTimeZone('UTC'));
-    }
 }

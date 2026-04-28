@@ -40,6 +40,8 @@ class PersonServiceTest extends TestCase {
         $this->assertSame('Misha', $person->getVorname());
         $this->assertSame('Muster', $person->getNachname());
         $this->assertSame('Misha Muster', $person->getAnzeigename());
+        $this->assertInstanceOf(\DateTime::class, $person->getCreatedAt());
+        $this->assertInstanceOf(\DateTime::class, $person->getUpdatedAt());
     }
 
     public function testCreateExternRejectsEmptyVorname(): void {
@@ -83,6 +85,8 @@ class PersonServiceTest extends TestCase {
         $this->assertSame('gabriel', $person->getNextcloudUserId());
         $this->assertNull($person->getVorname());
         $this->assertNull($person->getNachname());
+        $this->assertInstanceOf(\DateTime::class, $person->getCreatedAt());
+        $this->assertInstanceOf(\DateTime::class, $person->getUpdatedAt());
     }
 
     public function testGetAnzeigenameUsesDisplayNameForNextcloudUser(): void {

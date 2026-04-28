@@ -31,7 +31,7 @@ class Mitgliedschaft extends Entity {
         $this->addType('personId', Types::INTEGER);
         $this->addType('rolleId', Types::INTEGER);
         $this->addType('stimmberechtigtOverride', Types::BOOLEAN);
-        $this->addType('createdAt', Types::DATETIME);
-        $this->addType('updatedAt', Types::DATETIME);
+        $this->addType('createdAt', 'datetime');
+        $this->addType('updatedAt', 'datetime');
     }
 }

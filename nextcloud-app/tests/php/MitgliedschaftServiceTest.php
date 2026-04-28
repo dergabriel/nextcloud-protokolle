@@ -38,7 +38,9 @@ class MitgliedschaftServiceTest extends TestCase {
         $this->assertSame(1, $mitgliedschaft->getPersonId());
         $this->assertSame(2, $mitgliedschaft->getRolleId());
         $this->assertNull($mitgliedschaft->getStimmberechtigtOverride());
-        $this->assertNotNull($mitgliedschaft->getCreatedAt());
+        $this->assertInstanceOf(\DateTime::class, $mitgliedschaft->getCreatedAt());
+        $this->assertInstanceOf(\DateTime::class, $mitgliedschaft->getUpdatedAt());
+        $this->assertSame($mitgliedschaft->getCreatedAt(), $mitgliedschaft->getUpdatedAt());
     }
 
     public function testCreateRejectsDuplicateMitgliedschaft(): void {
