@@ -61,7 +61,9 @@ Nach der Aktivierung sollte **Protokolle** im Nextcloud-Hauptmenü erscheinen.
 Die Seite zeigt aktuell nur die Hello-World-Seite mit der Überschrift
 **Protokolle**.
 
-## 7. Test-Endpoint manuell prüfen
+## 7. Tests und Validierung
+
+Hello-Endpoint prüfen:
 
 ```bash
 curl -u admin:admin http://localhost:8080/index.php/apps/protokolle/hello
@@ -72,6 +74,15 @@ Erwartete Antwort:
 ```json
 {"status":"ok","message":"Hallo aus Protokolle"}
 ```
+
+Healthcheck-Endpoint prüfen:
+
+```bash
+curl -u admin:admin http://localhost:8080/index.php/apps/protokolle/healthcheck
+```
+
+Erwartet wird eine JSON-Antwort mit `"app":"protokolle"` und
+`"databaseConnection":"ok"`.
 
 ## 8. Tests lokal ausführen
 
