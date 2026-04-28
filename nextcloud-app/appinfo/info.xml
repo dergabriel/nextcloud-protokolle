@@ -28,5 +28,12 @@
         <command>OCA\Protokolle\Command\Rolle\CreateRolleCommand</command>
         <command>OCA\Protokolle\Command\Rolle\ListRolleCommand</command>
         <command>OCA\Protokolle\Command\Rolle\DeleteRolleCommand</command>
+        <command>OCA\Protokolle\Command\Person\CreateExternPersonCommand</command>
+        <command>OCA\Protokolle\Command\Person\CreateFromUserPersonCommand</command>
+        <command>OCA\Protokolle\Command\Person\ListPersonCommand</command>
+        <command>OCA\Protokolle\Command\Person\DeletePersonCommand</command>
+        <command>OCA\Protokolle\Command\Mitgliedschaft\CreateMitgliedschaftCommand</command>
+        <command>OCA\Protokolle\Command\Mitgliedschaft\ListMitgliedschaftCommand</command>
+        <command>OCA\Protokolle\Command\Mitgliedschaft\DeleteMitgliedschaftCommand</command>
     </commands>
 </info>
