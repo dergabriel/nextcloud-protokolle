@@ -56,6 +56,13 @@ class MitgliedschaftService {
     /**
      * @return Mitgliedschaft[]
      */
+    public function findAll(): array {
+        return $this->mitgliedschaftMapper->findAll();
+    }
+
+    /**
+     * @return Mitgliedschaft[]
+     */
     public function findByPerson(int $personId): array {
         return $this->mitgliedschaftMapper->findByPerson($personId);
     }

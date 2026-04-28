@@ -21,4 +21,12 @@
             <order>10</order>
         </navigation>
     </navigations>
+    <commands>
+        <command>OCA\Protokolle\Command\Gremium\CreateGremiumCommand</command>
+        <command>OCA\Protokolle\Command\Gremium\ListGremiumCommand</command>
+        <command>OCA\Protokolle\Command\Gremium\DeleteGremiumCommand</command>
+        <command>OCA\Protokolle\Command\Rolle\CreateRolleCommand</command>
+        <command>OCA\Protokolle\Command\Rolle\ListRolleCommand</command>
+        <command>OCA\Protokolle\Command\Rolle\DeleteRolleCommand</command>
+    </commands>
 </info>

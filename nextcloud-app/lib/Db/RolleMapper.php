@@ -37,6 +37,22 @@ class RolleMapper extends QBMapper {
      * @return Rolle[]
      * @throws Exception
      */
+    public function findAll(): array {
+        $qb = $this->db->getQueryBuilder();
+        $qb->select('*')
+            ->from($this->getTableName())
+            ->orderBy('gremium_id', 'ASC')
+            ->addOrderBy('name', 'ASC');
+
+        /** @var Rolle[] $rollen */
+        $rollen = $this->findEntities($qb);
+        return $rollen;
+    }
+
+    /**
+     * @return Rolle[]
+     * @throws Exception
+     */
     public function findByGremium(int $gremiumId): array {
         $qb = $this->db->getQueryBuilder();
         $qb->select('*')

@@ -37,6 +37,22 @@ class MitgliedschaftMapper extends QBMapper {
      * @return Mitgliedschaft[]
      * @throws Exception
      */
+    public function findAll(): array {
+        $qb = $this->db->getQueryBuilder();
+        $qb->select('*')
+            ->from($this->getTableName())
+            ->orderBy('person_id', 'ASC')
+            ->addOrderBy('rolle_id', 'ASC');
+
+        /** @var Mitgliedschaft[] $mitgliedschaften */
+        $mitgliedschaften = $this->findEntities($qb);
+        return $mitgliedschaften;
+    }
+
+    /**
+     * @return Mitgliedschaft[]
+     * @throws Exception
+     */
     public function findByPerson(int $personId): array {
         $qb = $this->db->getQueryBuilder();
         $qb->select('*')

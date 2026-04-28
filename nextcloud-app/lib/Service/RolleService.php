@@ -58,6 +58,13 @@ class RolleService {
     /**
      * @return Rolle[]
      */
+    public function findAll(): array {
+        return $this->rolleMapper->findAll();
+    }
+
+    /**
+     * @return Rolle[]
+     */
     public function findByGremium(int $gremiumId): array {
         return $this->rolleMapper->findByGremium($gremiumId);
     }
