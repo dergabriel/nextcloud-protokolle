@@ -84,7 +84,46 @@ curl -u admin:admin http://localhost:8080/index.php/apps/protokolle/healthcheck
 Erwartet wird eine JSON-Antwort mit `"app":"protokolle"` und
 `"databaseConnection":"ok"`.
 
-## 8. Tests lokal ausführen
+## 8. Datenbank-Schema
+
+Die erste Stammdaten-Migration legt vier Tabellen an:
+
+- `oc_protokolle_gremium` für organisatorische Einheiten wie AStA, StuPa
+  oder Fachschaftsräte
+- `oc_protokolle_rolle` für Rollen innerhalb eines Gremiums inklusive
+  Standard-Stimmrecht
+- `oc_protokolle_person` für Nextcloud-User-Personen und externe Personen
+- `oc_protokolle_mitgliedschaft` für die Zuordnung Person × Rolle
+
+Beim Aktivieren der App führt Nextcloud offene Migrationen automatisch aus.
+Für Reset-Szenarien ist der robuste Weg in der lokalen Dev-Umgebung:
+
+```bash
+cd dev-environment
+docker compose exec --user www-data nextcloud php occ app:disable protokolle
+docker compose exec --user www-data nextcloud php occ app:enable protokolle
+```
+
+Ältere Nextcloud-Versionen dokumentieren teils zusätzlich
+`occ migrations:execute protokolle 000001Date20260428000001`. Die aktuell
+verwendete Nextcloud-32-Dev-Instanz stellt diesen Befehl nicht bereit.
+
+Das Schema kann in der lokalen SQLite-Datenbank geprüft werden:
+
+```bash
+cd dev-environment
+docker compose exec nextcloud sqlite3 /var/www/html/data/nextcloud.db ".schema oc_protokolle_*"
+```
+
+Falls `sqlite3` im offiziellen Nextcloud-Container nicht installiert ist,
+funktioniert als Fallback:
+
+```bash
+cd dev-environment
+docker compose exec --user www-data nextcloud php -r '$db=new PDO("sqlite:/var/www/html/data/nextcloud.db"); foreach($db->query("SELECT name, sql FROM sqlite_master WHERE name LIKE \"oc_protokolle_%\" ORDER BY name") as $row){echo "--- ".$row["name"].PHP_EOL.$row["sql"].PHP_EOL;}'
+```
+
+## 9. Tests lokal ausführen
 
 ```bash
 cd nextcloud-app
@@ -92,7 +131,7 @@ composer install
 make test-php
 ```
 
-## 9. Häufige Probleme
+## 10. Häufige Probleme
 
 ### Port 8080 ist bereits belegt
 

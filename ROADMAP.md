@@ -20,7 +20,7 @@ flowchart LR
 | Phase | Titel | Status | Geschätzter Aufwand |
 | --- | --- | --- | --- |
 | Phase 0 | Projekt-Setup + Recherche | ✅ abgeschlossen | wenige Tage |
-| Phase 1a | Backend & Stammdaten | 🔜 als Nächstes | 1-2 Monate |
+| Phase 1a | Backend & Stammdaten | ⏳ begonnen | 1-2 Monate |
 | Phase 1b | Editor & Datei-Format | 🔜 geplant | 2 Monate |
 | Phase 2 | Live-Collaboration | 🔜 geplant | 1 Monat |
 | Phase 3 | Multi-Gremium & Beschluss-API | 🔜 geplant | 1-2 Monate |
@@ -76,12 +76,14 @@ Wenige Tage für Setup, Abstimmung, Recherche und erste Dokumentation.
 
 ## 🧱 Phase 1a - Backend & Stammdaten
 
-**Status:** als Nächstes
+**Status:** begonnen
 
 **Aktueller Stand:** Schritt 1, das Hello-World-Skelett der Nextcloud-App,
 ist abgeschlossen. Die App registriert sich als `protokolle`, bringt eine
 leere Seite, einen Test-Endpoint und eine lokale Docker-Entwicklungsumgebung
-mit. Stammdaten-Funktionen sind noch nicht umgesetzt.
+mit. Schritt 2, Datenbank-Schema und Stammdaten-Backend, ist begonnen: Die
+Migration für Gremien, Rollen, Personen und Mitgliedschaften sowie erste
+Entity-, Mapper-, Service- und Unit-Test-Strukturen entstehen ohne UI.
 
 ### Ziele
 
@@ -103,7 +105,7 @@ mit. Stammdaten-Funktionen sind noch nicht umgesetzt.
 
 - [ ] Stammdaten können vollständig gepflegt und über die Settings-UI
   verwaltet werden.
-- [ ] Gremien, Rollen und Mitgliedschaften sind in der Nextcloud-Datenbank
+- [ ] Gremien, Rollen, Personen und Mitgliedschaften sind in der Nextcloud-Datenbank
   abbildbar.
 - [ ] Personen können aus Nextcloud-Usern referenziert werden.
 - [ ] Geklärt ist, ob und wie die hda-Nextcloud `user_oidc` für authentik

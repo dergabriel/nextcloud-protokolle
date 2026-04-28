@@ -127,7 +127,6 @@ in der Datenbank.
 ```mermaid
 erDiagram
     GREMIUM ||--o{ ROLLE : definiert
-    GREMIUM ||--o{ MITGLIEDSCHAFT : hat
     PERSON ||--o{ MITGLIEDSCHAFT : besitzt
     ROLLE ||--o{ MITGLIEDSCHAFT : wird_genutzt_in
     GREMIUM ||--o{ SITZUNGSINDEX : indiziert
@@ -156,8 +155,7 @@ erDiagram
 
     MITGLIEDSCHAFT {
         string id
-        date von
-        date bis
+        boolean stimmberechtigtOverride
     }
 
     MARKDOWN_DATEI {
@@ -205,10 +203,16 @@ Mitglied, Vorsitz, Gast, Protokoll oder beratendes Mitglied. Rollen tragen ein
 Stimmrecht-Flag. Dadurch wird Stimmrecht nicht direkt an einzelne Personen
 gehängt, sondern an die Rolle, die eine Person in einem Gremium innehat.
 
-**Mitgliedschaft** verbindet Person, Rolle und Gremium über einen Zeitraum.
-So lässt sich abbilden, dass eine Person in einem Semester stimmberechtigtes
-Mitglied ist, später aber nur noch beratend teilnimmt oder aus dem Gremium
-ausscheidet.
+**Mitgliedschaft** verbindet Person und Rolle. Das Gremium ergibt sich
+indirekt über die Rolle. Mitgliedschaften haben bewusst keinen Zeitraum:
+Wenn jemand ausscheidet, wird die Mitgliedschaft gelöscht. Historische
+Mitgliedschaften leben in den Protokoll-Dateien selbst, nicht in der
+Stammdaten-DB.
+
+Die Stammdaten-Basis ist in Phase 1a technisch in `nextcloud-app/lib/Db/`,
+`nextcloud-app/lib/Service/` und `nextcloud-app/lib/Migration/` angelegt.
+Dort liegen Migration, Entities, Mapper und Services für Gremium, Rolle,
+Person und Mitgliedschaft als Grundlage für spätere UI- und API-Schritte.
 
 **Markdown-Datei** ist die primäre Quelle für Tagesordnung, Mitschrift,
 Abstimmungen, Anwesenheit und Beschlüsse. Sie liegt im normalen Nextcloud-
