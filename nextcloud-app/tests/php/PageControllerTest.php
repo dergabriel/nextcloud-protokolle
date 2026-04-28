@@ -10,6 +10,13 @@ namespace OCP {
 namespace OCP\AppFramework {
     use OCP\IRequest;
 
+    class App {
+        public function __construct(
+            protected string $appName,
+        ) {
+        }
+    }
+
     class Controller {
         public function __construct(
             protected string $appName,
@@ -46,6 +53,7 @@ namespace OCP\AppFramework\Http {
 }
 
 namespace OCA\Protokolle\Tests {
+    use OCA\Protokolle\AppInfo\Application;
     use OCA\Protokolle\Controller\PageController;
     use OCP\IRequest;
     use PHPUnit\Framework\TestCase;
@@ -55,7 +63,7 @@ namespace OCA\Protokolle\Tests {
     final class PageControllerTest extends TestCase {
         public function testHelloReturnsExpectedPayload(): void {
             $request = $this->createMock(IRequest::class);
-            $controller = new PageController('protokolle', $request);
+            $controller = new PageController(Application::APP_ID, $request);
 
             $response = $controller->hello();
 

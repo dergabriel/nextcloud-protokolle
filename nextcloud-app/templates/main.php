@@ -1,6 +1,6 @@
 <?php
 
-style('protokolle', 'protokolle');
+style(\OCA\Protokolle\AppInfo\Application::APP_ID, \OCA\Protokolle\AppInfo\Application::APP_ID);
 ?>
 
 <div id="protokolle-root" class="protokolle-page">

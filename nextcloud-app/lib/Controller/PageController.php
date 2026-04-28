@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OCA\Protokolle\Controller;
 
+use OCA\Protokolle\AppInfo\Application;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\TemplateResponse;
@@ -21,7 +22,7 @@ class PageController extends Controller {
      * @NoCSRFRequired
      */
     public function index(): TemplateResponse {
-        return new TemplateResponse('protokolle', 'main');
+        return new TemplateResponse(Application::APP_ID, 'main');
     }
 
     /**
